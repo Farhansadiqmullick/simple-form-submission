@@ -1,0 +1,50 @@
+.sfs-form body {
+  font-family: Arial, sans-serif; }
+
+.sfs-form .heading {
+  margin: 10px 20px;
+  text-align: center;
+  line-height: 1.5rem;
+  font-size: 32px;
+  color: #333; }
+
+.sfs-form .form-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px; }
+
+.sfs-form .form-group {
+  flex: 1;
+  min-width: 100%;
+  display: flex;
+  flex-direction: column; }
+
+.sfs-form label {
+  font-weight: bold;
+  margin-bottom: 5px; }
+
+.sfs-form input[type="text"],
+.sfs-form input[type="number"],
+.sfs-form input[type="email"],
+.sfs-form textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px; }
+
+.sfs-form select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  height: 150px;
+  resize: none; }
+
+.sfs-form button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer; }

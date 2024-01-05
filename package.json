@@ -1,0 +1,17 @@
+{
+  "name": "simple-form-submission",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sass:compile": "node-sass sass/frontend.scss public/assets/css/frontend.css",
+    "sass:watch": "npm run sass:compile -- --watch"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "node-sass": "^9.0.0",
+    "watch": "^0.13.0"
+  }
+}
