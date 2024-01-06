@@ -6,7 +6,7 @@
  * Utilities Trait to use in all classes globally
  */
 
-defined('ABSPATH') || die('No script kiddies please!');
+defined('ABSPATH') || exit;
 
 /**
  * Trait Utilities

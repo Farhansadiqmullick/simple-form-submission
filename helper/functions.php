@@ -12,3 +12,24 @@ function get_user_ip()
     }
     return $ip;
 }
+
+
+function generate_random_salt() {
+    $characters = '123456789abcdefghijklmnopqrstuvwxyz';
+    $salt = '';
+    for ($i = 0; $i < 8; $i++) {
+        $salt .= $characters[rand(0, strlen($characters) - 1)];
+    }
+    return $salt;
+}
+
+
+function sha512hashing($string, $salt) {
+    $string_with_salt = $string . $salt;
+    $hashedString = hash('sha512', $string_with_salt);
+
+    return $hashedString;
+}
+
+
+

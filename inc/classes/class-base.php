@@ -10,7 +10,7 @@ defined('ABSPATH') || exit;
 
 
 /**
- * Class OrderSyncWithGoogleSheetForWooCommerce\Base
+ * Class Base
  *
  * @version  1.0
  */
@@ -34,10 +34,10 @@ abstract class Base
      */
     public static $instance = null;
     /**
-     * Ajax constructor.
+     * constructor.
      */
-    public function __construct()
-    {
-        $this->plugin = new Plugin();
-    }
+    // public function __construct()
+    // {
+    //     $this->plugin = new Plugin();
+    // }
 }
