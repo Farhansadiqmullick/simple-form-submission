@@ -17,7 +17,7 @@ function get_user_ip()
 function generate_random_salt() {
     $characters = '123456789abcdefghijklmnopqrstuvwxyz';
     $salt = '';
-    for ($i = 0; $i < 8; $i++) {
+    for ($i = 0; $i < 3; $i++) {
         $salt .= $characters[rand(0, strlen($characters) - 1)];
     }
     return $salt;
@@ -29,6 +29,16 @@ function sha512hashing($string, $salt) {
     $hashedString = hash('sha512', $string_with_salt);
 
     return $hashedString;
+}
+
+function get_data_from_database($id) {
+    global $wpdb;
+    $tablename = $wpdb->prefix . 'sfs';
+
+    $query = $wpdb->prepare("SELECT * FROM $tablename WHERE id = %d", $id);
+    $values = $wpdb->get_row($query, ARRAY_A);
+
+    return $values;
 }
 
 

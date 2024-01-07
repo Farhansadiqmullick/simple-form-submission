@@ -32,6 +32,19 @@
     margin-bottom: 5px;
   }
 
+  .item-container {
+    display: flex;
+    flex-direction: row;
+    max-width: 600px;
+  }
+
+  .tag {
+    padding: 10px 16px;
+    margin: 5px 2px;
+    background-color: #ddd;
+    cursor: pointer;
+  }
+
   input[type="text"],
   input[type="number"],
   input[type="email"],

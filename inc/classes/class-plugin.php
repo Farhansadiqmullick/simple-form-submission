@@ -61,7 +61,7 @@ final class Plugin extends Base
 	public function sfs_frontend_assets()
 	{
 		wp_enqueue_script('jquery', '//code.jquery.com/jquery-3.6.0.min.js');
-		wp_enqueue_style('sfs-frontend', SFS_URL . 'public/assets/css/frontend.css', '', rand(111, 999), 'all');
+		wp_enqueue_style('sfs-frontend', SFS_URL . 'public/assets/css/admin.css', '', rand(111, 999), 'all');
 		wp_enqueue_script('sfs-frontend', SFS_URL .  'src/js/frontend.js', ['jquery'], rand(111, 999), true);
 		wp_localize_script('sfs-frontend', 'sfs_script', $this->localized_script());
 	}
@@ -69,7 +69,7 @@ final class Plugin extends Base
 	public function sfs_backend_assets($hook)
 	{
 		if ('toplevel_page_sfs' == $hook) {
-			wp_enqueue_style('sfs-backend', SFS_URL . 'src/css/backend.css', '', rand(111, 999), 'all');
+			wp_enqueue_style('sfs-backend', SFS_URL . 'public/assets/css/admin.css', '', rand(111, 999), 'all');
 			wp_enqueue_script('sfs-backend', SFS_URL .  'src/js/backend.js', ['jquery'], rand(11, 999), true);
 			wp_localize_script('sfs-backend', 'sfs_script', $this->localized_script());
 		}
@@ -91,8 +91,8 @@ final class Plugin extends Base
 
 	public function sfs_table_display()
 	{
+		include(SFS_PATH . 'template/backend-data.php');
 	}
-
 
 	/**
 	 * Default options
@@ -109,10 +109,11 @@ final class Plugin extends Base
 		return apply_filters('sfs_options', $options);
 	}
 
-	public function get_options() {
+	public function get_options()
+	{
 		$sfs_options = [];
-		foreach ( $this->get_default_options() as $key => $value ) {
-			$sfs_options[ $key ] = $value;
+		foreach ($this->get_default_options() as $key => $value) {
+			$sfs_options[$key] = $value;
 		}
 		$sfs_options = (object) $sfs_options;
 		return $sfs_options;

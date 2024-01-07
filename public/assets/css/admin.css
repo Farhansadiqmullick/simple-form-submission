@@ -1,0 +1,115 @@
+.sfs-form body {
+  font-family: Arial, sans-serif; }
+
+.sfs-form .heading {
+  margin: 10px 20px;
+  text-align: center;
+  line-height: 1.5rem;
+  font-size: 32px;
+  color: #333; }
+
+.sfs-form .form-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px; }
+
+.sfs-form .form-group {
+  flex: 1;
+  min-width: 100%;
+  display: flex;
+  flex-direction: column; }
+
+.sfs-form label {
+  font-weight: bold;
+  margin-bottom: 5px; }
+
+.sfs-form .item-container {
+  display: flex;
+  flex-direction: row;
+  max-width: 600px; }
+
+.sfs-form .tag {
+  padding: 10px 16px;
+  margin: 5px 2px;
+  background-color: #ddd;
+  cursor: pointer; }
+
+.sfs-form input[type="text"],
+.sfs-form input[type="number"],
+.sfs-form input[type="email"],
+.sfs-form textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px; }
+
+.sfs-form select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  height: 150px;
+  resize: none; }
+
+.sfs-form button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer; }
+
+.sfs-edit-popup {
+  display: none; }
+  .sfs-edit-popup .show {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.5; }
+  .sfs-edit-popup form {
+    position: fixed;
+    background-color: #fff;
+    top: 50%;
+    left: 50%;
+    transition: transform(-50%, -50%); }
+
+/* Edit wrapper styles */
+.edit-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+/* Gray overlay styles */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1; }
+
+/* Popup form styles */
+.sfs-edit-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  z-index: 2; }
+
+/* Close button styles */
+.close-popup {
+  display: block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer; }

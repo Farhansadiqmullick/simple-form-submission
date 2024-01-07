@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "sass:compile": "node-sass sass/frontend.scss public/assets/css/frontend.css",
+    "sass:compile": "node-sass sass/main.scss public/assets/css/admin.css",
     "sass:watch": "npm run sass:compile -- --watch"
 },
   "keywords": [],

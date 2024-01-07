@@ -39,6 +39,9 @@ final class Ajax extends Base
     {
         add_action('wp_ajax_sfs_frontend_validation', array($this, 'sfs_contact'));
         add_action('wp_ajax_nopriv_sfs_frontend_validation', array($this, 'sfs_contact'));
+        
+        add_action('wp_ajax_sfs_edit_item', array($this, 'sfs_update_item'));
+        
     }
 
     public function sfs_contact()
@@ -72,39 +75,40 @@ final class Ajax extends Base
 
         $filteredData = [];
 
+
         if (isset($data) && is_array($data)) {
             foreach ($values as $key) {
-                // Check if the key exists in $data
-                if (array_key_exists($key, $data)) {
-                    switch ($key) {
-                        case 'amount':
+                switch ($key) {
+                    case 'amount':
+                        $filteredData[$key] = intval($data[$key]);
+                        break;
+                    case 'items':
+                        if (is_array($data[$key])) {
+                            $filteredData[$key] = sanitize_text_field(implode(',', str_replace(['&times;', ','], '', $data[$key])));
+                        }
+                        break;
+                    case 'buyer_ip':
+                        $filteredData[$key] = $data[$key]['user_ip'] ? sanitize_text_field($data[$key]['user_ip']) : '';
+                        break;
+                    case 'entry_at':
+                        $filteredData[$key] = date('Y-m-d H:i:s');
+                        break;
+                    case 'hash_key':
+                        if (isset($data['receipt_id'])) {
+                            $hashing = sha512hashing($data['receipt_id'], generate_random_salt());
+                            $filteredData[$key] = $hashing;
+                        }
+                        break;
+                    default:
+                        if ('string' == gettype($key)) {
+                            $filteredData[$key] = sanitize_text_field($data[$key]);
+                        } else if ('int' == gettype($key)) {
                             $filteredData[$key] = intval($data[$key]);
-                            break;
-                        case 'items':
-                            if (is_array($data[$key])) {
-                                $filteredData[$key] = implode(',', $data[$key]);
-                            }
-                            break;
-                        case 'buyer_ip':
-                            $filteredData[$key] = get_user_ip();
-                            break;
-                        case 'entry_at':
-                            $filteredData[$key] = date('Y-m-d H:i:s');
-                            break;
-                        case 'hash_key':
-                            if (isset($data['receipt_id'])) {
-                                $filteredData[$key] = sha512hashing($data['receipt_id'], generate_random_salt());
-                                error_log("hash value". print_r($filteredData[$key], true));
-                            }
-                            break;
-                        default:
-                            $filteredData[$key] = $data[$key];
-                            break;
-                    }
+                        }
+                        break;
                 }
             }
         }
-
         return $filteredData;
     }
 
@@ -124,6 +128,23 @@ final class Ajax extends Base
         }
 
         return false;
+    }
+
+    public function sfs_update_item(){
+
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'edit_item')) {
+            wp_send_json_error(['error' => 'Unauthorized Access']);
+        }
+
+        if(isset($_POST['id'])){
+            $id = absint($_POST['id']);
+            $values = get_data_from_database($id);
+            include(SFS_PATH . 'template/edit-template.php');
+            sfs_edit_values($values);
+        }
+
+        wp_die();
+
     }
 }
 
