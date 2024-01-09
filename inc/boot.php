@@ -50,6 +50,11 @@ if (file_exists(SFS_INC . 'classes/class-table.php')) {
 	require_once SFS_INC . 'classes/class-table.php';
 }
 
+if (file_exists(SFS_INC . 'blocks/gutenberg-table.php')) {
+	require_once SFS_INC . 'blocks/gutenberg-table.php';
+}
+
+
 
 /**
  * Load ajax

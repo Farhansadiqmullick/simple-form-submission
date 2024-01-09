@@ -14,7 +14,8 @@ function get_user_ip()
 }
 
 
-function generate_random_salt() {
+function generate_random_salt()
+{
     $characters = '123456789abcdefghijklmnopqrstuvwxyz';
     $salt = '';
     for ($i = 0; $i < 3; $i++) {
@@ -24,14 +25,16 @@ function generate_random_salt() {
 }
 
 
-function sha512hashing($string, $salt) {
+function sha512hashing($string, $salt)
+{
     $string_with_salt = $string . $salt;
     $hashedString = hash('sha512', $string_with_salt);
 
     return $hashedString;
 }
 
-function get_data_from_database($id) {
+function get_data_from_database($id)
+{
     global $wpdb;
     $tablename = $wpdb->prefix . 'sfs';
 
@@ -41,5 +44,12 @@ function get_data_from_database($id) {
     return $values;
 }
 
+function sfs_delete_item($id)
+{
+    global $wpdb;
+    $tablename = $wpdb->prefix . 'sfs';
+    if (is_numeric($id) && $id > 0) {
+        $wpdb->delete($tablename, array('id' => $id), array('%d'));
+    }
 
-
+}

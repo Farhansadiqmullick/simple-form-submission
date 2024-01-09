@@ -5,12 +5,16 @@
   "main": "index.js",
   "scripts": {
     "sass:compile": "node-sass sass/main.scss public/assets/css/admin.css",
-    "sass:watch": "npm run sass:compile -- --watch"
-},
+    "sass:backend": "node-sass sass/_backend.scss src/css/backend.css",
+    "sass:watch": "npm run sass:compile -- --watch",
+    "start": "wp-scripts start src/index.js",
+    "build": "wp-scripts build src/index.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@wordpress/scripts": "^26.19.0",
     "node-sass": "^9.0.0",
     "watch": "^0.13.0"
   }

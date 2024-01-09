@@ -33,11 +33,4 @@ abstract class Base
      * @var null
      */
     public static $instance = null;
-    /**
-     * constructor.
-     */
-    // public function __construct()
-    // {
-    //     $this->plugin = new Plugin();
-    // }
 }

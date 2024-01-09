@@ -1,64 +1,115 @@
-.sfs-edit-popup {
-  display: none;
-
-  .show {
-    display: block;
-    width: 100vw;
-    height: 100vh;
-    opacity: 0.5;
-  }
-
-  form {
-    position: fixed;
-    background-color: #fff;
-    top: 50%;
-    left: 50%;
-    transition: transform(-50%, -50%);
-  }
-}
-
 
 /* Edit wrapper styles */
 .edit-wrapper {
+  display: none;
+
+  &.show {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* Gray overlay styles */
-  .overlay {
-    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-  
-  /* Popup form styles */
-  .sfs-edit-form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
-    z-index: 2;
+}
+
+/* Gray overlay styles */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+/* Popup form styles */
+.sfs-edit-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  .heading {
+    margin: 10px 20px;
+    text-align: center;
+    line-height: 1.5rem;
+    font-size: 32px;
+    color: #333;
   }
-  
-  /* Close button styles */
-  .close-popup {
-    display: block;
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #333;
+
+  .form-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    max-width: 600px;
+    padding: 10px;
+  }
+
+  .form-group {
+    flex: 1;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .item-container {
+    display: flex;
+    flex-direction: row;
+    max-width: 600px;
+  }
+
+  .tag {
+    padding: 10px 16px;
+    margin: 5px 2px;
+    background-color: #ddd;
+    cursor: pointer;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 150px;
+    resize: none;
+  }
+
+  button[type="submit"] {
+    background-color: #007bff;
     color: #fff;
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
   }
-  
+}
+
+/* Close button styles */
+.close-popup {
+  display: block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

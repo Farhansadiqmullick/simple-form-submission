@@ -69,9 +69,10 @@ final class Plugin extends Base
 	public function sfs_backend_assets($hook)
 	{
 		if ('toplevel_page_sfs' == $hook) {
-			wp_enqueue_style('sfs-backend', SFS_URL . 'public/assets/css/admin.css', '', rand(111, 999), 'all');
+			wp_enqueue_style('sfs-backend', SFS_URL . 'src/css/backend.css', '', rand(111, 999), 'all');
 			wp_enqueue_script('sfs-backend', SFS_URL .  'src/js/backend.js', ['jquery'], rand(11, 999), true);
 			wp_localize_script('sfs-backend', 'sfs_script', $this->localized_script());
+			wp_localize_script('sfs-backend', 'sfs_backend_form', $this->localized_script());
 		}
 	}
 

@@ -5,7 +5,7 @@ function sfs_edit_values($values)
     $items = explode(',', $values['items']);
 ?>
 
-    <div class="sfs-edit-form show">
+    <div class="sfs-edit-form">
         <h2 class="heading">Edit Form</h2>
         <form class="form-container" action="" method="POST">
             <div class="form-group">
@@ -24,9 +24,9 @@ function sfs_edit_values($values)
                 <label for="items">Items *</label>
                 <input type="text" name="items" id="items" placeholder="Enter items and separate with commas" value="">
                 <div class="item-container" id="itemsContainer">
-                    <?php 
-                    foreach($items as $item){
-                        printf('<div class="tab">%s</div>', esc_attr($item));
+                    <?php
+                    foreach ($items as $item) {
+                        printf('<div class="tag">%s<span class="remove-item">&times;</span></div>', esc_attr($item));
                     }
                     ?>
                 </div>
@@ -37,7 +37,7 @@ function sfs_edit_values($values)
             </div>
             <div class="form-group">
                 <label for="note">Note *</label>
-                <textarea id="note" name="note" rows="4" ><?php echo esc_html($values['note']); ?></textarea>
+                <textarea id="note" name="note" rows="4"><?php echo esc_html($values['note']); ?></textarea>
             </div>
             <div class="form-group">
                 <label for="city">City *</label>
@@ -45,13 +45,13 @@ function sfs_edit_values($values)
             </div>
             <div class="form-group">
                 <label for="phone">Phone *</label>
-                <input type="number" id="phone" name="phone" value="<?php echo esc_attr($values['phone']); ?>" >
+                <input type="number" id="phone" name="phone" value="<?php echo esc_attr($values['phone']); ?>">
             </div>
             <div class="form-group">
                 <label for="entry_by">Entry By *</label>
-                <input type="number" id="entry_by" name="entry_by" value="<?php echo esc_attr($values['entry_by']); ?>"  min="1">
+                <input type="number" id="entry_by" name="entry_by" value="<?php echo esc_attr($values['entry_by']); ?>" min="1">
             </div>
-            <button name="submit" type="submit">Submit</button>
+            <button name="submit" type="submit">Update</button>
         </form>
     </div>
 

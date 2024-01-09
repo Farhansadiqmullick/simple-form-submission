@@ -44,10 +44,10 @@ class SFS_TABLE extends WP_List_Table
     function column_action($item)
     {
         $actions = array(
-            'edit' => sprintf('<a href="#" class="edit-item" data-item-id="%s" data-nonce="%s">Edit</a>', $item['id'], esc_attr(wp_create_nonce('edit_item'))),
-            'delete' => sprintf('<a href="?page=%s&action=%s&id=%s&_wpnonce=%s">Delete</a>', esc_attr($_REQUEST['page']), 'delete', $item['id'], esc_attr(wp_create_nonce('delete-item'))),
+            'edit' => sprintf('<a href="#" class="edit-item" data-item-id="%s" data-nonce="%s">Edit</a>', $item['id'], esc_attr(wp_create_nonce('edit-item'))),
+            'delete' => sprintf('<a href="?page=%s&action=%s&id=%s&_wpnonce=%s" onclick="return confirm(\'Are you sure you want to delete the id?\')">Delete</a>', esc_attr($_REQUEST['page']), 'delete', $item['id'], esc_attr(wp_create_nonce('delete-item'))),
         );
-
+        
         return $this->row_actions($actions);
     }
 
@@ -59,39 +59,12 @@ class SFS_TABLE extends WP_List_Table
 
     function process_bulk_action()
     {
-        if ('edit' === $this->current_action()) {
-            // Handle edit action here
-            $id = isset($_GET['id']) ? absint($_GET['id']) : 0;
-            if ($id) {
-                check_admin_referer('edit-item');
-
-                $item_data = get_data_from_database($id);
-
-                if ($item_data) {
-                    // Extract data for the input field
-                    // $value = esc_attr($item_data['value']);
-
-                    // Create the HTML for the popup form
-?>
-                    <div id="edit-popup" class="sfs-edit-popup">
-                        <form method="post" action="">
-                            <input type="hidden" name="item_id" value="<?php echo $id; ?>">
-                            <label for="item_value">Value:</label>
-                            <input type="text" name="item_value" value="">
-                            <input type="submit" name="update_item" value="Update">
-                        </form>
-                    </div>
-<?php
-                }
-            }
-        } elseif ('delete' === $this->current_action()) {
+        if ('delete' === $this->current_action()) {
             // Handle delete action here
             $id = isset($_GET['id']) ? absint($_GET['id']) : 0;
             if ($id) {
                 check_admin_referer('delete-item');
-
-                // Delete the item by ID
-                // You can create a custom function for deleting the item.
+                sfs_delete_item($id);
             }
         }
     }

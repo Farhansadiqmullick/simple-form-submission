@@ -39,9 +39,12 @@ final class Ajax extends Base
     {
         add_action('wp_ajax_sfs_frontend_validation', array($this, 'sfs_contact'));
         add_action('wp_ajax_nopriv_sfs_frontend_validation', array($this, 'sfs_contact'));
-        
+
         add_action('wp_ajax_sfs_edit_item', array($this, 'sfs_update_item'));
-        
+        add_action('wp_ajax_sfs_backend_validation', array($this, 'sfs_update_form'));
+
+        add_action('wp_ajax_fetch_sfs_fetch_gutenberg_table', 'sfs_fetch_gutenberg_table_data');
+        add_action('wp_ajax_nopriv_sfs_fetch_gutenberg_table', 'sfs_fetch_gutenberg_table_data');
     }
 
     public function sfs_contact()
@@ -71,7 +74,11 @@ final class Ajax extends Base
     private function validate_and_sanitize_data($data)
     {
         date_default_timezone_set('Asia/Dhaka');
-        $values = ['amount', 'buyer', 'receipt_id', 'items', 'buyer_email', 'buyer_ip', 'note', 'city', 'phone', 'hash_key', 'entry_at', 'entry_by'];
+        if ($data['action'] == "sfs_backend_validation") {
+            $values = ['id', 'amount', 'buyer', 'receipt_id', 'items', 'buyer_email', 'buyer_ip', 'note', 'city', 'phone', 'hash_key', 'entry_at', 'entry_by'];
+        } else {
+            $values = ['amount', 'buyer', 'receipt_id', 'items', 'buyer_email', 'buyer_ip', 'note', 'city', 'phone', 'hash_key', 'entry_at', 'entry_by'];
+        }
 
         $filteredData = [];
 
@@ -130,13 +137,14 @@ final class Ajax extends Base
         return false;
     }
 
-    public function sfs_update_item(){
-
-        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'edit_item')) {
+    public function sfs_update_item()
+    {
+        error_log('verify nonce' . $_POST['nonce']);
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'edit-item')) {
             wp_send_json_error(['error' => 'Unauthorized Access']);
         }
 
-        if(isset($_POST['id'])){
+        if (isset($_POST['id'])) {
             $id = absint($_POST['id']);
             $values = get_data_from_database($id);
             include(SFS_PATH . 'template/edit-template.php');
@@ -144,7 +152,70 @@ final class Ajax extends Base
         }
 
         wp_die();
+    }
 
+    public function sfs_update_form()
+    {
+        // if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'edit-item')) {
+        //     wp_send_json_error(['error' => 'Unauthorized Access']);
+        // }
+
+        // check_admin_referer( '_wpnonce' );
+
+        $validated_data = $this->validate_and_sanitize_data($_POST);
+
+        if (empty($validated_data)) {
+            wp_send_json_error(['error' => 'Invalid Data']);
+        }
+
+        $updated = $this->sfs_update_data_into_db($validated_data);
+
+        if (!$updated) {
+            wp_send_json_error(['error' => 'Database Insertion Error']);
+        }
+        wp_send_json_success(['data' => json_encode($validated_data)]);
+        wp_die();
+    }
+
+    private function sfs_update_data_into_db($data)
+    {
+        global $wpdb;
+        $tablename = $wpdb->prefix . 'sfs';
+
+        if (isset($data['id']) && is_numeric($data['id'])) {
+            $id = $data['id'];
+            if (!empty($data)) {
+                $keys = array();
+                $values = array();
+                foreach ($data as $column => $value) {
+                    if ($column != 'id') {
+                        $keys[] = "$column = %s";
+                        $values[] = $value;
+                    }
+                }
+                $set_clause = implode(', ', $keys);
+                $args = array("UPDATE $tablename SET $set_clause WHERE id = %d");
+                $args = array_merge($args, $values);
+                $args = array_merge($args, array($id));
+
+                $query = call_user_func_array(array($wpdb, 'prepare'), $args);
+                return $wpdb->query($query);
+            }
+        }
+
+        return false;
+    }
+
+    //Gutenberg Block Ajax
+    function sfs_fetch_gutenberg_table_data()
+    {
+        global $wpdb;
+        $tablename = $wpdb->prefix . 'sfs';
+        $sfs_values = $wpdb->get_results("SELECT id, amount, buyer, receipt_id, items, buyer_email, buyer_ip, note, city, phone, hash_key, entry_at, entry_by from {$tablename} ORDER BY id DESC", ARRAY_A);
+
+        // Return the data as JSON
+        wp_send_json(json_encode($sfs_values));
+        wp_die();
     }
 }
 
