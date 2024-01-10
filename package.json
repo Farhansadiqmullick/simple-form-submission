@@ -1,14 +1,18 @@
 {
-  "name": "simple-form-submission",
+  "name": "my-webpack-project",
   "version": "1.0.0",
-  "description": "",
+  "description": "My webpack project",
   "main": "index.js",
   "scripts": {
     "sass:compile": "node-sass sass/main.scss public/assets/css/admin.css",
     "sass:backend": "node-sass sass/_backend.scss src/css/backend.css",
     "sass:watch": "npm run sass:compile -- --watch",
-    "start": "wp-scripts start src/index.js",
-    "build": "wp-scripts build src/index.js"
+    "start": "wp-scripts start --webpack-src-dir=blocks/src/ --output-path=build/",
+	"build": "wp-scripts build --webpack-src-dir=blocks/src/ --output-path=build/",
+	"start:frontend": "wp-scripts start --webpack-src-dir=blocks/src/sfs-frontend --output-path=build/sfs-frontend",
+	"build:frontend": "wp-scripts build --webpack-src-dir=blocks/src/sfs-frontend --output-path=build/sfs-frontend",
+	"start:backend": "wp-scripts start --webpack-src-dir=blocks/src/sfs-backend --output-path=build/sfs-backend",
+	"build:backend": "wp-scripts build --webpack-src-dir=blocks/src/sfs-backend --output-path=build/sfs-backend"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +20,12 @@
   "devDependencies": {
     "@wordpress/scripts": "^26.19.0",
     "node-sass": "^9.0.0",
-    "watch": "^0.13.0"
+    "watch": "^0.13.0",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "@wordpress/block-editor": "^12.16.0",
+    "@wordpress/blocks": "^12.25.0"
   }
 }

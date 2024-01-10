@@ -11,6 +11,7 @@ class SFS_TABLE extends WP_List_Table
     private $per_page = 10;
     private $total_items;
     private $current_page;
+
     function __construct($data)
     {
         parent::__construct();
@@ -20,7 +21,7 @@ class SFS_TABLE extends WP_List_Table
     function get_columns()
     {
         return [
-            'cb'     => '<input type="checkbox">',
+            'cb'     => __('Id', 'sfs'),
             'amount'   => __('Amount', 'sfs'),
             'buyer'   => __('Buyer', 'sfs'),
             'receipt_id'   => __('Receipt Id', 'sfs'),
@@ -47,7 +48,6 @@ class SFS_TABLE extends WP_List_Table
             'edit' => sprintf('<a href="#" class="edit-item" data-item-id="%s" data-nonce="%s">Edit</a>', $item['id'], esc_attr(wp_create_nonce('edit-item'))),
             'delete' => sprintf('<a href="?page=%s&action=%s&id=%s&_wpnonce=%s" onclick="return confirm(\'Are you sure you want to delete the id?\')">Delete</a>', esc_attr($_REQUEST['page']), 'delete', $item['id'], esc_attr(wp_create_nonce('delete-item'))),
         );
-        
         return $this->row_actions($actions);
     }
 
@@ -56,6 +56,15 @@ class SFS_TABLE extends WP_List_Table
     {
         return $item[$column_name];
     }
+
+    function get_sortable_columns()
+    {
+        return [
+            'id' => ['id', true],
+            'entry_at' => ['entry_at', true],
+        ];
+    }
+
 
     function process_bulk_action()
     {
@@ -75,6 +84,28 @@ class SFS_TABLE extends WP_List_Table
         $this->_column_headers = array($this->get_columns(), [], []);
         $this->current_page = $this->get_pagenum();
         $this->total_items = count($this->items);
+
+
+        $orderby = (!empty($_REQUEST['orderby'])) ? $_REQUEST['orderby'] : 'entry_at';
+        $order = (!empty($_REQUEST['order'])) ? $_REQUEST['order'] : 'desc';
+
+        usort($this->items, function ($a, $b) use ($orderby, $order) {
+            $dateA = strtotime($a[$orderby]);
+            $dateB = strtotime($b[$orderby]);
+            if ($order === 'desc') {
+                return $dateA - $dateB;
+            } else {
+                return $dateB - $dateA;
+            }
+        });
+
+        $s = isset($_REQUEST['s']) ? sanitize_text_field($_REQUEST['s']) : '';
+
+        if (!empty($s)) {
+            $this->items = array_filter($this->items, function ($item) use ($s) {
+                return strpos(strtolower($item['items']), strtolower($s)) !== false;
+            });
+        }
 
         // Set the pagination arguments
         $pagination_args = array(

@@ -51,5 +51,4 @@ function sfs_delete_item($id)
     if (is_numeric($id) && $id > 0) {
         $wpdb->delete($tablename, array('id' => $id), array('%d'));
     }
-
 }

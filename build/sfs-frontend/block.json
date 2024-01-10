@@ -1,10 +1,10 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 2,
-  "name": "sfs/gutenberg-table-block",
-  "title": "SFS Gutenberg Block",
+  "name": "sfs/gutenberg-form-block",
+  "title": "SFS Gutenberg Form Block",
   "category": "widgets",
-  "icon": "table-row-before",
+  "icon": "media-document",
   "editorScript": "file:index.js",
   "editorStyle": "file:index.css"
 }
