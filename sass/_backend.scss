@@ -28,6 +28,7 @@
 
 /* Popup form styles */
 .sfs-edit-form {
+  position: relative;
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
@@ -99,22 +100,23 @@
     border-radius: 5px;
     cursor: pointer;
   }
-}
-
-/* Close button styles */
-.close-popup {
-  display: block;
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #333;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  /* Close button styles */
+  .close-popup {
+    position: absolute;
+    margin-top: 10px;
+    top: 0;
+    right: 15px;
+    font-size: 24px;
+    width: 50px;
+    background-color: #fff;
+    padding: 10px 20px;
+    color: #333;
+    cursor: pointer;
+  }
 }
 
 // Table Format
 
-.sfs_backend_table{
+.sfs_backend_table {
   margin: 0px 10px;
 }

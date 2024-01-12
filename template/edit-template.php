@@ -6,7 +6,8 @@ function sfs_edit_values($values)
 ?>
 
     <div class="sfs-edit-form">
-        <h2 class="heading">Edit Form</h2>
+        <h2 class="heading"><?php __('Edit Form', 'sfs'); ?></h2>
+        <span class="close-popup">&times;</span>
         <form class="form-container" action="" method="POST">
             <div class="form-group">
                 <label for="amount">Amount *</label>

@@ -24,11 +24,13 @@
 
 /* Popup form styles */
 .sfs-edit-form {
+  position: relative;
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  z-index: 2; }
+  z-index: 2;
+  /* Close button styles */ }
   .sfs-edit-form .heading {
     margin: 10px 20px;
     text-align: center;
@@ -78,17 +80,17 @@
     border: none;
     border-radius: 5px;
     cursor: pointer; }
-
-/* Close button styles */
-.close-popup {
-  display: block;
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #333;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer; }
+  .sfs-edit-form .close-popup {
+    position: absolute;
+    margin-top: 10px;
+    top: 0;
+    right: 15px;
+    font-size: 24px;
+    width: 50px;
+    background-color: #fff;
+    padding: 10px 20px;
+    color: #333;
+    cursor: pointer; }
 
 .sfs_backend_table {
   margin: 0px 10px; }

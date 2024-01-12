@@ -21,10 +21,6 @@
   min-width: 100%;
   display: flex;
   flex-direction: column; }
-
-.sfs-form .form-group {
-  display: flex;
-  flex-direction: column; }
   .sfs-form .form-group .phone-prefix {
     display: flex;
     flex-direction: row;
@@ -34,6 +30,28 @@
       padding: 8px 12px;
       align-self: center;
       margin-right: 3px; }
+  .sfs-form .form-group .icon-container {
+    display: inline-block;
+    position: relative;
+    min-width: 320px; }
+    .sfs-form .form-group .icon-container:hover .tooltip {
+      visibility: visible;
+      opacity: 1;
+      transform: translateX(-50%) translateY(-6px); }
+  .sfs-form .form-group .tooltip {
+    visibility: hidden;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 4px 8px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 30%;
+    transform: translateX(-30%);
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s; }
 
 .sfs-form .form-group.phone span {
   margin-right: 2px; }

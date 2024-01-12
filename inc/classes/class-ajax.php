@@ -62,7 +62,6 @@ final class Ajax extends Base
 
         $validated_data = $this->validate_and_sanitize_data($_POST);
 
-        error_log('All the values' . print_r($validated_data, true));
         if (empty($validated_data)) {
             wp_send_json_error(['error' => 'Invalid Data']);
         }
@@ -126,7 +125,7 @@ final class Ajax extends Base
                         break;
                     case 'entry_at':
                         $filteredData[$key] = date('Y-m-d H:i:s');
-                        break;                    
+                        break;
                     case 'phone':
                         $filteredData[$key] = $data[$key];
                         break;
@@ -169,7 +168,6 @@ final class Ajax extends Base
 
     public function sfs_update_item()
     {
-        error_log('verify nonce' . $_POST['nonce']);
         if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'edit-item')) {
             wp_send_json_error(['error' => 'Unauthorized Access']);
         }
@@ -186,11 +184,9 @@ final class Ajax extends Base
 
     public function sfs_update_form()
     {
-        // if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'edit-item')) {
-        //     wp_send_json_error(['error' => 'Unauthorized Access']);
-        // }
-
-        // check_admin_referer( '_wpnonce' );
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'sfs_nonce')) {
+            wp_send_json_error(['error' => 'Unauthorized Access']);
+        }
 
         $validated_data = $this->validate_and_sanitize_data($_POST);
 

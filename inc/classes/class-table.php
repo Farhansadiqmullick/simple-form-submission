@@ -44,12 +44,16 @@ class SFS_TABLE extends WP_List_Table
 
     function column_action($item)
     {
-        $actions = array(
-            'edit' => sprintf('<a href="#" class="edit-item" data-item-id="%s" data-nonce="%s">Edit</a>', $item['id'], esc_attr(wp_create_nonce('edit-item'))),
-            'delete' => sprintf('<a href="?page=%s&action=%s&id=%s&_wpnonce=%s" onclick="return confirm(\'Are you sure you want to delete the id?\')">Delete</a>', esc_attr($_REQUEST['page']), 'delete', $item['id'], esc_attr(wp_create_nonce('delete-item'))),
-        );
-        return $this->row_actions($actions);
+        if (current_user_can('administrator')) {
+            $actions = array(
+                'edit' => sprintf('<a href="#" class="edit-item" data-item-id="%s" data-nonce="%s">Edit</a>', $item['id'], esc_attr(wp_create_nonce('edit-item'))),
+                'delete' => sprintf('<a href="?page=%s&action=%s&id=%s&_wpnonce=%s" onclick="return confirm(\'Are you sure you want to delete the id?\')">Delete</a>', esc_attr($_REQUEST['page']), 'delete', $item['id'], esc_attr(wp_create_nonce('delete-item'))),
+            );
+            return $this->row_actions($actions);
+        }
     }
+
+
 
 
     function column_default($item, $column_name)

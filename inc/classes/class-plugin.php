@@ -87,6 +87,10 @@ final class Plugin extends Base
 
 	public function sfs_backend_table_shortcode()
 	{
+		$permission = is_editor_or_admin_logged_in();
+		if (!$permission) {
+			return;
+		}
 		global $wpdb;
 		$tablename = $wpdb->prefix . 'sfs';
 		$sfs_values = $wpdb->get_results("SELECT id, amount, buyer, receipt_id, items, buyer_email, buyer_ip, note, city, phone, hash_key, entry_at, entry_by from {$tablename} ORDER BY id DESC", ARRAY_A);
@@ -96,7 +100,7 @@ final class Plugin extends Base
 
 	public function sfs_admin_page()
 	{
-		add_menu_page(__('Simple Form', 'sfs'), __('Simple Form', 'sfs'), 'edit_theme_options', 'sfs', array($this, 'sfs_table_display'), 'dashicons-feedback');
+		add_menu_page(__('Simple Form', 'sfs'), __('Simple Form', 'sfs'), 'edit_pages', 'sfs', array($this, 'sfs_table_display'), 'dashicons-feedback');
 	}
 
 

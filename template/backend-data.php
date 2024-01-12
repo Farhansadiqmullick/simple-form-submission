@@ -9,7 +9,7 @@ $search_value = isset($_REQUEST['s']) ? sanitize_text_field($_REQUEST['s']) : ''
 <div class="sfs-form-search">
     <form method="get" action="admin.php">
         <input type="hidden" name="page" value="sfs">
-        <input type="search" name="s" placeholder="Search Items" value="<?php echo $search_value ? $search_value : ''; ?>">
+        <input type="search" name="s" placeholder="Search Items" value="<?php echo $search_value ? esc_attr($search_value) : ''; ?>">
         <input type="submit" value="Search">
     </form>
 </div>

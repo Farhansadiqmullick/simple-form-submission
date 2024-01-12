@@ -78,6 +78,10 @@ final class Gutenberg_Table
 
     function sfs_load_backend_table($attributes)
     {
+        $permission = is_editor_or_admin_logged_in();
+        if (!$permission) {
+            return;
+        }
         global $wpdb;
         $tablename = $wpdb->prefix . 'sfs';
         $sfs_values = $wpdb->get_results("SELECT id, amount, buyer, receipt_id, items, buyer_email, buyer_ip, note, city, phone, hash_key, entry_at, entry_by from {$tablename} ORDER BY id DESC", ARRAY_A);

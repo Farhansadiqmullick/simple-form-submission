@@ -86,3 +86,16 @@ function generate_sfs_table_html($data)
 
     return $html;
 }
+
+function is_editor_or_admin_logged_in()
+{
+    if (is_user_logged_in()) {
+        $current_user = wp_get_current_user();
+
+        if (in_array('editor', $current_user->roles) || in_array('administrator', $current_user->roles)) {
+            return true;
+        }
+    }
+
+    return false;
+}

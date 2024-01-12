@@ -25,11 +25,6 @@
     min-width: 100%;
     display: flex;
     flex-direction: column;
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
 
     .phone-prefix {
       display: flex;
@@ -42,6 +37,38 @@
         align-self: center;
         margin-right: 3px;
       }
+    }
+
+    .icon-container {
+      display: inline-block;
+      position: relative;
+      min-width: 320px;
+
+      &:hover {
+        .tooltip {
+          visibility: visible;
+          opacity: 1;
+          transform: translateX(-50%) translateY(-6px);
+        }
+      }
+    }
+
+    .tooltip {
+      visibility: hidden;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 4px;
+      padding: 4px 8px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 30%;
+      transform: translateX(-30%);
+      opacity: 0;
+      transition:
+        opacity 0.3s,
+        transform 0.3s;
     }
   }
 

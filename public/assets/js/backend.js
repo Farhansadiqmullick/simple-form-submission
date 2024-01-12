@@ -22,6 +22,11 @@
           $(".edit-wrapper").addClass("show");
           $(".edit-wrapper").html(response);
 
+          $(".close-popup").on("click", function () {
+            $(".edit-wrapper").removeClass("show");
+            window.location.reload();
+          });
+
           //tag removing
           $(".sfs-edit-form .tag").each(function () {
             $(this).click(function () {
@@ -88,8 +93,7 @@
               formData.action = "sfs_backend_validation";
               formData.id = itemId;
               formData.buyer_ip = sfs_backend_form.user_ip;
-
-              console.log(formData);
+              formData.nonce = sfs_backend_form.nonce;
 
               $.ajax({
                 url: sfs_backend_form.ajax_url,
@@ -98,7 +102,7 @@
                 success: function (response) {
                   // Handle the response from the server
                   console.log(response);
-                  if(response.success){
+                  if (response.success) {
                     window.location.reload();
                   }
                 },
