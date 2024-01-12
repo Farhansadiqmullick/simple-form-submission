@@ -22,6 +22,22 @@
   display: flex;
   flex-direction: column; }
 
+.sfs-form .form-group {
+  display: flex;
+  flex-direction: column; }
+  .sfs-form .form-group .phone-prefix {
+    display: flex;
+    flex-direction: row;
+    align-items: center; }
+    .sfs-form .form-group .phone-prefix span {
+      background-color: #eee;
+      padding: 8px 12px;
+      align-self: center;
+      margin-right: 3px; }
+
+.sfs-form .form-group.phone span {
+  margin-right: 2px; }
+
 .sfs-form label {
   font-weight: bold;
   margin-bottom: 5px; }
@@ -59,3 +75,21 @@
   border: none;
   border-radius: 5px;
   cursor: pointer; }
+
+.sfs_table {
+  max-width: 800px;
+  width: auto;
+  border-collapse: collapse; }
+  .sfs_table td {
+    max-width: 100px;
+    word-wrap: break-word;
+    border: 1px solid #ccc;
+    padding: 10px; }
+
+@media (max-width: 780px) {
+  .sfs_table {
+    width: auto;
+    overflow: auto; }
+  td {
+    max-width: none;
+    width: auto; } }

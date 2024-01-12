@@ -15,7 +15,7 @@ $search_value = isset($_REQUEST['s']) ? sanitize_text_field($_REQUEST['s']) : ''
 </div>
 
 
-<div class="form_box">
+<div class="sfs_backend_table">
     <div class="form_box_content">
         <?php
         global $wpdb;

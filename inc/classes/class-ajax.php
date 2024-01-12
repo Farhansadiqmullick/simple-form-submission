@@ -49,13 +49,20 @@ final class Ajax extends Base
 
     public function sfs_contact()
     {
-
         if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'sfs_nonce')) {
             wp_send_json_error(['error' => 'Unauthorized Access']);
         }
 
+        $cookie = $this->sfs_handle_cookie_for_submission($_POST['buyer_ip']);
+
+        if (!$cookie) {
+            wp_send_json(['proceed' => 'Data already sent']);
+            return;
+        }
+
         $validated_data = $this->validate_and_sanitize_data($_POST);
 
+        error_log('All the values' . print_r($validated_data, true));
         if (empty($validated_data)) {
             wp_send_json_error(['error' => 'Invalid Data']);
         }
@@ -66,9 +73,29 @@ final class Ajax extends Base
             wp_send_json_error(['error' => 'Database Insertion Error']);
         }
 
-        error_log('all the values' . print_r($validated_data, true));
         wp_send_json_success(['data' => json_encode($validated_data)]);
         wp_die();
+    }
+
+    // Function to handle form submissions
+    function sfs_handle_cookie_for_submission($user_ip)
+    {
+        if (isset($user_ip)) {
+            $cookie_name = $user_ip['user_ip'];
+            $day_time = intval(24 * 60 * 60);
+            if (!isset($cookie_name)) {
+                setcookie($cookie_name, time(), time() + $day_time, "/");
+                return true;
+            }
+
+            if ((time() - $_COOKIE[$cookie_name]) > ($day_time)) {
+                // Set the cookie with an expiration time
+                setcookie($cookie_name, time(), time() + ($day_time), "/");
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     private function validate_and_sanitize_data($data)
@@ -99,6 +126,9 @@ final class Ajax extends Base
                         break;
                     case 'entry_at':
                         $filteredData[$key] = date('Y-m-d H:i:s');
+                        break;                    
+                    case 'phone':
+                        $filteredData[$key] = $data[$key];
                         break;
                     case 'hash_key':
                         if (isset($data['receipt_id'])) {

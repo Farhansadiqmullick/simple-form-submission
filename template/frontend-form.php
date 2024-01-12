@@ -33,7 +33,10 @@
         </div>
         <div class="form-group">
             <label for="phone">Phone *</label>
-            <input type="number" id="phone" name="phone" value="" required>
+            <div class="phone-prefix">
+                <span>+880</span>
+                <input type="number" id="phone" name="phone" value="" required>
+            </div>
         </div>
         <div class="form-group">
             <label for="entry_by">Entry By *</label>

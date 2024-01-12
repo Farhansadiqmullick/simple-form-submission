@@ -81,6 +81,7 @@ class SFS_TABLE extends WP_List_Table
 
     function prepare_items()
     {
+        //pagination
         $this->_column_headers = array($this->get_columns(), [], []);
         $this->current_page = $this->get_pagenum();
         $this->total_items = count($this->items);
@@ -99,6 +100,7 @@ class SFS_TABLE extends WP_List_Table
             }
         });
 
+        //search with the items
         $s = isset($_REQUEST['s']) ? sanitize_text_field($_REQUEST['s']) : '';
 
         if (!empty($s)) {
@@ -106,6 +108,11 @@ class SFS_TABLE extends WP_List_Table
                 return strpos(strtolower($item['items']), strtolower($s)) !== false;
             });
         }
+
+
+        // Sorting
+        $sortable_columns = $this->get_sortable_columns();
+        $this->_column_headers = array($this->get_columns(), array(), $sortable_columns);
 
         // Set the pagination arguments
         $pagination_args = array(

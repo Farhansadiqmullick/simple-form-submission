@@ -49,7 +49,8 @@ final class Plugin extends Base
 		add_action('wp_enqueue_scripts', array($this, 'sfs_frontend_assets'));
 		add_action('admin_enqueue_scripts', array($this, 'sfs_backend_assets'));
 		add_shortcode('sfs_frontend_form', array($this, 'sfs_frontend_form_shortcode'));
-		// add_action('wp_footer', array($this, 'sfs_cookie'));
+		add_shortcode('sfs_backend_table', array($this, 'sfs_backend_table_shortcode'));
+		add_action('widgets_init', array($this, 'register_sfs_widget'));
 	}
 
 
@@ -62,15 +63,15 @@ final class Plugin extends Base
 	{
 		wp_enqueue_script('jquery', '//code.jquery.com/jquery-3.6.0.min.js');
 		wp_enqueue_style('sfs-frontend', SFS_URL . 'public/assets/css/admin.css', '', rand(111, 999), 'all');
-		wp_enqueue_script('sfs-frontend', SFS_URL .  'src/js/frontend.js', ['jquery'], rand(111, 999), true);
+		wp_enqueue_script('sfs-frontend', SFS_URL .  'public/assets/js/frontend.js', ['jquery'], rand(111, 999), true);
 		wp_localize_script('sfs-frontend', 'sfs_script', $this->localized_script());
 	}
 
 	public function sfs_backend_assets($hook)
 	{
 		if ('toplevel_page_sfs' == $hook) {
-			wp_enqueue_style('sfs-backend', SFS_URL . 'src/css/backend.css', '', rand(111, 999), 'all');
-			wp_enqueue_script('sfs-backend', SFS_URL .  'src/js/backend.js', ['jquery'], rand(11, 999), true);
+			wp_enqueue_style('sfs-backend', SFS_URL . 'build/css/backend.css', '', rand(111, 999), 'all');
+			wp_enqueue_script('sfs-backend', SFS_URL .  'public/assets/js/backend.js', ['jquery'], rand(11, 999), true);
 			wp_localize_script('sfs-backend', 'sfs_script', $this->localized_script());
 			wp_localize_script('sfs-backend', 'sfs_backend_form', $this->localized_script());
 		}
@@ -84,6 +85,15 @@ final class Plugin extends Base
 		return ob_get_clean();
 	}
 
+	public function sfs_backend_table_shortcode()
+	{
+		global $wpdb;
+		$tablename = $wpdb->prefix . 'sfs';
+		$sfs_values = $wpdb->get_results("SELECT id, amount, buyer, receipt_id, items, buyer_email, buyer_ip, note, city, phone, hash_key, entry_at, entry_by from {$tablename} ORDER BY id DESC", ARRAY_A);
+		$output = generate_sfs_table_html($sfs_values);
+		return $output;
+	}
+
 	public function sfs_admin_page()
 	{
 		add_menu_page(__('Simple Form', 'sfs'), __('Simple Form', 'sfs'), 'edit_theme_options', 'sfs', array($this, 'sfs_table_display'), 'dashicons-feedback');
@@ -93,6 +103,12 @@ final class Plugin extends Base
 	public function sfs_table_display()
 	{
 		include(SFS_PATH . 'template/backend-data.php');
+	}
+
+	// Register the widget
+	public function register_sfs_widget()
+	{
+		register_widget('SFS_Widget');
 	}
 
 	/**

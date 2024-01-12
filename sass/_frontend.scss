@@ -27,6 +27,28 @@
     flex-direction: column;
   }
 
+  .form-group {
+    display: flex;
+    flex-direction: column;
+
+    .phone-prefix {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      span {
+        background-color: #eee;
+        padding: 8px 12px;
+        align-self: center;
+        margin-right: 3px;
+      }
+    }
+  }
+
+  .form-group.phone span {
+    margin-right: 2px;
+  }
+
   label {
     font-weight: bold;
     margin-bottom: 5px;
@@ -69,5 +91,18 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+  }
+}
+
+.sfs_table {
+  max-width: 800px;
+  width: auto;
+  border-collapse: collapse;
+
+  td {
+    max-width: 100px;
+    word-wrap: break-word;
+    border: 1px solid #ccc;
+    padding: 10px;
   }
 }

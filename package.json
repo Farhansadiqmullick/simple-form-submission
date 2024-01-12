@@ -1,11 +1,11 @@
 {
-  "name": "my-webpack-project",
+  "name": "simple-from-submission",
   "version": "1.0.0",
-  "description": "My webpack project",
+  "description": "simple form submission project",
   "main": "index.js",
   "scripts": {
     "sass:compile": "node-sass sass/main.scss public/assets/css/admin.css",
-    "sass:backend": "node-sass sass/_backend.scss src/css/backend.css",
+    "sass:backend": "node-sass sass/_backend.scss build/css/backend.css",
     "sass:watch": "npm run sass:compile -- --watch",
     "start": "wp-scripts start --webpack-src-dir=blocks/src/ --output-path=build/",
 	"build": "wp-scripts build --webpack-src-dir=blocks/src/ --output-path=build/",
@@ -15,7 +15,7 @@
 	"build:backend": "wp-scripts build --webpack-src-dir=blocks/src/sfs-backend --output-path=build/sfs-backend"
   },
   "keywords": [],
-  "author": "",
+  "author": "farhan",
   "license": "ISC",
   "devDependencies": {
     "@wordpress/scripts": "^26.19.0",

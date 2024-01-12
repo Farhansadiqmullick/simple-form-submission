@@ -1,8 +1,7 @@
 /* Edit wrapper styles */
 .edit-wrapper {
-  display: none;
-
-  &.show {
+  display: none; }
+  .edit-wrapper.show {
     position: fixed;
     top: 0;
     left: 0;
@@ -11,9 +10,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
-    align-items: center;
-  }
-}
+    align-items: center; }
 
 /* Gray overlay styles */
 .overlay {
@@ -23,8 +20,7 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
-}
+  z-index: 1; }
 
 /* Popup form styles */
 .sfs-edit-form {
@@ -32,74 +28,56 @@
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  z-index: 2;
-  .heading {
+  z-index: 2; }
+  .sfs-edit-form .heading {
     margin: 10px 20px;
     text-align: center;
     line-height: 1.5rem;
     font-size: 32px;
-    color: #333;
-  }
-
-  .form-container {
+    color: #333; }
+  .sfs-edit-form .form-container {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
     max-width: 600px;
-    padding: 10px;
-  }
-
-  .form-group {
+    padding: 10px; }
+  .sfs-edit-form .form-group {
     flex: 1;
     min-width: 100%;
     display: flex;
-    flex-direction: column;
-  }
-
-  label {
+    flex-direction: column; }
+  .sfs-edit-form label {
     font-weight: bold;
-    margin-bottom: 5px;
-  }
-
-  .item-container {
+    margin-bottom: 5px; }
+  .sfs-edit-form .item-container {
     display: flex;
     flex-direction: row;
-    max-width: 600px;
-  }
-
-  .tag {
+    max-width: 600px; }
+  .sfs-edit-form .tag {
     padding: 10px 16px;
     margin: 5px 2px;
     background-color: #ddd;
-    cursor: pointer;
-  }
-
-  input[type="text"],
-  input[type="number"],
-  input[type="email"],
-  textarea {
+    cursor: pointer; }
+  .sfs-edit-form input[type="text"],
+  .sfs-edit-form input[type="number"],
+  .sfs-edit-form input[type="email"],
+  .sfs-edit-form textarea {
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-
-  select {
+    border-radius: 5px; }
+  .sfs-edit-form select {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     height: 150px;
-    resize: none;
-  }
-
-  button[type="submit"] {
+    resize: none; }
+  .sfs-edit-form button[type="submit"] {
     background-color: #007bff;
     color: #fff;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
-  }
-}
+    cursor: pointer; }
 
 /* Close button styles */
 .close-popup {
@@ -110,11 +88,7 @@
   color: #fff;
   border: none;
   border-radius: 5px;
-  cursor: pointer;
-}
+  cursor: pointer; }
 
-// Table Format
-
-.sfs_backend_table{
-  margin: 0px 10px;
-}
+.sfs_backend_table {
+  margin: 0px 10px; }
